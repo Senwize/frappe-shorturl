@@ -1,0 +1,55 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-02-25 18:21:23.629007",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "url_base",
+  "url_prefix",
+  "code_length"
+ ],
+ "fields": [
+  {
+   "fieldname": "url_base",
+   "fieldtype": "Data",
+   "label": "URL Base",
+   "options": "URL"
+  },
+  {
+   "default": "l",
+   "fieldname": "url_prefix",
+   "fieldtype": "Data",
+   "label": "URL Prefix"
+  },
+  {
+   "default": "5",
+   "fieldname": "code_length",
+   "fieldtype": "Int",
+   "label": "Generated code length"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-02-25 18:21:23.629007",
+ "modified_by": "Administrator",
+ "module": "ShortURL",
+ "name": "ShortURL Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

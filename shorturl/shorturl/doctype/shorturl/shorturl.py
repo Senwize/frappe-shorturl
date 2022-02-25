@@ -12,11 +12,15 @@ import base64
 import os
 from io import BytesIO
 
-
 # - Document name (descriptive)
 # - Document short_id is the route suffix
 # - Document short_url is the full short url
 # - Document long_url
+
+
+def urljoin(*args):
+  return '/'.join(s.strip('/') for s in args)
+
 
 def create_qr(url):
   qr = qrcode.QRCode(
@@ -33,9 +37,10 @@ def create_qr(url):
 
 class ShortURL(WebsiteGenerator):
   def generate_code(self):
+    length = frappe.db.get_single_value("ShortURL Settings", "code_length")
     retries = 0
     while retries < 3:
-      random_code = random_string(5)
+      random_code = random_string(length)
       doc = frappe.get_value("ShortURL", {"short_id": random_code}, "name")
       if doc:
         retries += 1
@@ -46,8 +51,10 @@ class ShortURL(WebsiteGenerator):
   def before_save(self):
     if self.short_id == "":
       self.short_id = self.generate_code()
-    # self.qr_code = get_qrcode(qr_code, self.logo)
-    self.route = 'l/' + self.short_id
-    url = get_url(self.route)
+
+    url_prefix = frappe.db.get_single_value("ShortURL Settings", "url_prefix")
+    url_base = frappe.db.get_single_value("ShortURL Settings", "url_base")
+    self.route = urljoin(url_prefix, self.short_id)
+    url = urljoin(url_base, self.route)
     self.short_url = url
     self.qr_code = create_qr(url)
