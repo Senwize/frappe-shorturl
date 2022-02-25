@@ -13,6 +13,7 @@ function random_code(length) {
 frappe.ui.form.on('ShortURL', {
   refresh(frm) {
     if (!!frm.doc.short_id) {
+      frm.disable_save()
       frm.page.set_primary_action(
         "Update Link",
         () => {
